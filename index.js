@@ -26,22 +26,22 @@ app.get("/api/hello", function (req, res) {
 
 // get end point for dates
 
-app.get("/api/:timestamp", (req, res) => {
-  const requestDate = req.params.timestamp;
+// app.get("/api/:timestamp", (req, res) => {
+//   const requestDate = req.params.timestamp;
 
-  console.log(requestDate);
+//   console.log(requestDate);
 
-  if (!requestDate || requestDate === "") {
-    res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() });
-  } else {
-    const requestDateIntger = parseInt(requestDate);
-    // console.log(typeof requestDateIntger);
-    res.json({
-      unix: new Date(requestDateIntger).getTime(),
-      utc: new Date(requestDateIntger).toUTCString(),
-    });
-  }
-});
+//   if (!requestDate || requestDate === "") {
+//     res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() });
+//   } else {
+//     const requestDateIntger = parseInt(requestDate);
+//     // console.log(typeof requestDateIntger);
+//     res.json({
+//       unix: new Date(requestDateIntger).getTime(),
+//       utc: new Date(requestDateIntger).toUTCString(),
+//     });
+//   }
+// });
 
 app.get("/api/:date?", (req, res) => {
   const requestDate = req.params.date;
