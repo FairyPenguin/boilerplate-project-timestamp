@@ -33,14 +33,28 @@ app.get("/api/:date?", (req, res) => {
 
   if (!requestDate) {
     res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() });
+
+    // check time stamp
   } else if (isNaN(requestDate) === false) {
     const dateToIntger = parseInt(requestDate);
     res.json({
       unix: new Date(dateToIntger).getTime(),
       utc: new Date(dateToIntger).toUTCString(),
     });
+
+    //check invalid date input
   } else if (new Date(requestDate).toString() === "Invalid Date") {
     res.json({ error: "Invalid Date" });
+
+    // any other date input
+  } else {
+    // const requestDateString = requestDate.toString();
+    const requestDateString = requestDate;
+
+    res.json({
+      unix: new Date(requestDateString).getTime(),
+      utc: new Date(requestDateString).toUTCString(),
+    });
   }
 
   // invalid;
@@ -48,20 +62,20 @@ app.get("/api/:date?", (req, res) => {
   //   res.json({ error: "Invalid Date" });
 
   //any valid date
-  if (isNaN(requestDate) === false) {
-    const dateToIntger = parseInt(requestDate);
-    res.json({
-      unix: new Date(dateToIntger).getTime(),
-      utc: new Date(dateToIntger).toUTCString(),
-    });
-  } else {
-    const requestDateString = requestDate.toString();
+  // if (isNaN(requestDate) === false) {
+  //   const dateToIntger = parseInt(requestDate);
+  //   res.json({
+  //     unix: new Date(dateToIntger).getTime(),
+  //     utc: new Date(dateToIntger).toUTCString(),
+  //   });
+  // } else {
+  //   const requestDateString = requestDate.toString();
 
-    res.json({
-      unix: new Date(requestDateString).getTime(),
-      utc: new Date(requestDateString).toUTCString(),
-    });
-  }
+  //   res.json({
+  //     unix: new Date(requestDateString).getTime(),
+  //     utc: new Date(requestDateString).toUTCString(),
+  //   });
+  // }
 });
 
 // app.get("/api/:date?", (req, res) => {
