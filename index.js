@@ -26,23 +26,6 @@ app.get("/api/hello", function (req, res) {
 
 // get end point for dates
 
-// app.get("/api/:timestamp", (req, res) => {
-//   const requestDate = req.params.timestamp;
-
-//   console.log(requestDate);
-
-//   if (!requestDate || requestDate === "") {
-//     res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() });
-//   } else {
-//     const requestDateIntger = parseInt(requestDate);
-//     // console.log(typeof requestDateIntger);
-//     res.json({
-//       unix: new Date(requestDateIntger).getTime(),
-//       utc: new Date(requestDateIntger).toUTCString(),
-//     });
-//   }
-// });
-
 app.get("/api/:date?", (req, res) => {
   const requestDate = req.params.date;
 
@@ -50,12 +33,27 @@ app.get("/api/:date?", (req, res) => {
 
   if (!requestDate) {
     res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() });
-
-    //invalid
+  } else if (isNaN(requestDate) === false) {
+    const dateToIntger = parseInt(requestDate);
+    res.json({
+      unix: new Date(dateToIntger).getTime(),
+      utc: new Date(dateToIntger).toUTCString(),
+    });
   } else if (new Date(requestDate).toString() === "Invalid Date") {
     res.json({ error: "Invalid Date" });
+  }
 
-    //any valid date
+  // invalid;
+  // } else if (new Date(requestDate).toString() === "Invalid Date") {
+  //   res.json({ error: "Invalid Date" });
+
+  //any valid date
+  if (isNaN(requestDate) === false) {
+    const dateToIntger = parseInt(requestDate);
+    res.json({
+      unix: new Date(dateToIntger).getTime(),
+      utc: new Date(dateToIntger).toUTCString(),
+    });
   } else {
     const requestDateString = requestDate.toString();
 
@@ -65,5 +63,29 @@ app.get("/api/:date?", (req, res) => {
     });
   }
 });
+
+// app.get("/api/:date?", (req, res) => {
+//   const requestDate = req.params.date;
+
+//   console.log(typeof requestDate);
+
+//   if (!requestDate) {
+//     res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() });
+
+//     //invalid
+//   } else if (new Date(requestDate).toString() === "Invalid Date") {
+//     res.json({ error: "Invalid Date" });
+
+//     //any valid date
+//   } else {
+//     // const requestDateString = requestDate.toString();
+//     // const requestDateIntger = parseInt(requestDate);
+
+//     res.json({
+//       unix: new Date(requestDate).getTime(),
+//       utc: new Date(requestDate).toUTCString(),
+//     });
+//   }
+// });
 
 app.listen(3000);
